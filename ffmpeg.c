@@ -1766,6 +1766,11 @@ static void print_report(int is_last_report, int64_t timer_start, int64_t cur_ti
     hours = mins / 60;
     mins %= 60;
 
+    int64_t duration = input_files[0]->ctx->duration;
+    int percent = (int)(pts * 100 / duration);
+    snprintf(buf + strlen(buf), sizeof(buf) - strlen(buf),
+                                 "duration=%lld pts=%lld percent=%d%% ", duration, pts, percent);
+
     bitrate = pts && total_size >= 0 ? total_size * 8 / (pts / 1000.0) : -1;
     speed = t != 0.0 ? (double)pts / AV_TIME_BASE / t : -1;
 
